@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Disease Predictor</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #3f87a6, #ebf8e1);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #ffffffd1;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 80px;
+        }
+
+        label {
+            font-weight: 600;
+        }
+
+        select {
+            width: 100%;
+        }
+
+        .btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #1e8449;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f1f8e9;
+            border-left: 6px solid #7cb342;
+            font-size: 18px;
+            font-weight: bold;
+            color: #33691e;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 13px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://cdn-icons-png.flaticon.com/512/2797/2797994.png" alt="Health Logo" class="logo">
+
+        <h1>Disease Predictor</h1>
+
+        <form method="POST">
+            <label for="symptoms">Select Your Symptoms:</label>
+            <select id="symptoms" name="symptoms" multiple="multiple">
+                {% for symptom in symptoms %}
+                    <option value="{{ symptom }}">{{ symptom.replace("_", " ").title() }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn">Predict</button>
+        </form>
+
+        {% if prediction %}
+            <div class="result">
+                🩺 Predicted Disease: {{ prediction }}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Disease Predictor. Made with ❤️ for health awareness.
+    </div>
+
+    <!-- jQuery and Select2 JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#symptoms').select2({
+                placeholder: "Type or select symptoms",
+                allowClear: true
+            });
+        });
+    </script>
+</body>
+</html>
